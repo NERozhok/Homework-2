@@ -1,0 +1,48 @@
+#include<stdio.h> 
+#include<stdlib.h> 
+
+typedef struct element 
+{ 
+	int b; 
+	struct element *prev; 
+	struct element *next; 
+} element; 
+
+element *list_new() 
+{ 
+	element *list = malloc(sizeof(element)); 
+	list->b = NULL; 
+	list->prev = NULL; 
+	list->next = NULL; 
+	return list; 
+} 
+
+int list_delete(element *list) 
+{ 
+	for( ; NULL; list->next) 
+	free(list); 
+	return 1; 
+} 
+
+int push(element *list, int b) 
+{ 
+	element *elem = malloc(sizeof(element)); 
+	elem->b = b; 
+	elem->next = NULL; 
+	elem->prev = list->b; 
+	list->next = elem->b; 
+	return 1; 
+} 
+
+int pop(element *list, int x) 
+{ 
+	for( ; NULL; list->next) 
+	x = list->b; 
+	return 1; 
+} 
+
+void list_print(element *list) 
+{ 
+	for( ; NULL; list->next) 
+	printf("%d->\n", list->b); 
+} 
