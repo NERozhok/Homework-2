@@ -1,48 +1,75 @@
-#include<stdio.h> 
-#include<stdlib.h> 
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct element 
-{ 
-	int b; 
-	struct element *prev; 
-	struct element *next; 
-} element; 
+typedef struct element {
+	int a;
+	struct element *next;
+	struct element *prev;
+} element;
 
-element *list_new() 
-{ 
-	element *list = malloc(sizeof(element)); 
-	list->b = NULL; 
-	list->prev = NULL; 
-	list->next = NULL; 
-	return list; 
-} 
+element *list_new() {
+	element *head = malloc(sizeof(element));
+	head->a = NULL;
+	head->next = NULL;
+	head->prev = NULL;
+	return head;
+}
 
-int list_delete(element *list) 
-{ 
-	for( ; NULL; list->next) 
-	free(list); 
-	return 1; 
-} 
+int list_delete(element *head) {
+	head = head->next;
+	while (head->next != NULL) {
+		free(head->prev);
+		head = head->next;
+	}
+	free(head->prev);
+	free(head);
+	return 1;
+}
 
-int push(element *list, int b) 
-{ 
-	element *elem = malloc(sizeof(element)); 
-	elem->b = b; 
-	elem->next = NULL; 
-	elem->prev = list->b; 
-	list->next = elem->b; 
-	return 1; 
-} 
+int push(element *elem, int b) {
+	while (elem->next != NULL) {
+		elem = elem->next;
+	}
+	element *el = malloc(sizeof(element));
+	el->prev = elem;
+	el->next = NULL;
+	el->a = b;
+	elem->next = el;
+	return 1;
+}
 
-int pop(element *list, int x) 
-{ 
-	for( ; NULL; list->next) 
-	x = list->b; 
-	return 1; 
-} 
+int pop(element *elem, int *x) {
+	if (elem == NULL) {
+	return 0;
+	}
+	while (elem->next != NULL) {
+	elem = elem->next;
+	}
+	*x = elem->a;
+	return 1;
+}
 
-void list_print(element *list) 
-{ 
-	for( ; NULL; list->next) 
-	printf("%d->\n", list->b); 
-} 
+int unshift(element *elem, int b) {
+	element *el = malloc (sizeof(element));
+		if (elem->next == NULL){
+		elem->next = el;
+		el->prev = elem;
+		el->next = NULL;
+		el->a = b;
+		return 1;
+	}
+	elem->next->prev = el;
+	elem->next = el;
+	el->next = elem->next;
+	el->prev = elem;
+	el->a = b;
+	return 1;
+}
+
+int shift(element *elem, int *x) {
+	if (elem == NULL) {
+	return 0;
+	}
+	*x = elem->next->a;
+	return 1;
+}
